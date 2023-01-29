@@ -1,37 +1,47 @@
 import React, { useState } from "react"
 import axios from 'axios'
+import download from 'downloadjs'
 let FileUpload=()=>{
     let[userFile,setUserFile]=useState()
     let[img, setImg]=useState()
-    
+    var[fName,setFName]=useState()
     let ChangeHandler=(event)=>{
-        // console.log(event.target.files[0])
         setUserFile(URL.createObjectURL(event.target.files[0]))
         setImg(event.target.files[0])
+        console.log(event.target.files[0])
+        let len=event.target.files[0].name.length-4
+        setFName(event.target.files[0].name.slice(0, len) + "myjpeg") ;
     }
 
-    let SubmitHandler=(event)=>{
+    let DownloadHandler = async () => {
+        await console.log('bam')
+        const res = await fetch("http://localhost:9000/download");
+        const blob = await res.blob();
+        await console.log(blob)
+        await download(blob,fName);
+      }
+    let SubmitHandler= async (event)=>{
         event.preventDefault()
-        let data = new FormData();
-        data.append('file', data)
-        axios.post("http://localhost:5000/upload", data)
+        let data = await new FormData();
+        await data.append('file', img)
+        await console.log("wassup")
+        await axios.post("http://localhost:9000/upload", data, {})
         .then(res => { 
         console.log(res.statusText)
-      })
+        })
+        
+        // await DownloadHandler()
+        // console.log(fName)
     }
-
-    
-    
 
     return(
         <React.Fragment>
             <form onSubmit={SubmitHandler}>
-                <input type="file" accept='.jpeg' onChange={ChangeHandler}/>
+                <input type="file" name ='file' accept='.jpeg' onChange={ChangeHandler}/>
                 <input type="submit"/>
             </form>
             <img src={userFile}/>
         </React.Fragment>
-        
     )
 }
 export default FileUpload
