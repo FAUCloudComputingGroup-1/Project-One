@@ -2,34 +2,23 @@ var express = require('express');
 var app = express();
 var multer = require('multer')
 var cors = require('cors');
+var request = require('request');
+var fname=''
 
 app.use(cors())
 
-let storage = multer.diskStorage({
-      destination: function (req, file, cb) {
-      cb(null, 'public')
-    },
-    filename: function (req, file, cb) {
-      cb(null, Date.now() + '-' +file.originalname )
-    }
-})
-let upload = multer({ storage: storage }).single('file')
-
 app.post('/upload',function(req, res) {
-     
-    upload(req, res, function (err) {
-           if (err instanceof multer.MulterError) {
-               return res.status(500).json(err)
-           } else if (err) {
-               return res.status(500).json(err)
-           }
-      return res.status(200).send(req.file)
-
-    })
-
+  console.log("sta")
+  console.log(req)
+  console.log("min")
+  res.redirect('http://localhost:8000/upload');
+  console.log("fin")
 });
-app.listen(8000, function() {
 
-    console.log('App running on port 8000');
+app.get('/download', (req, res) => {
+      console.log(req.body)
+  })
 
+app.listen(9000, function() {
+    console.log('App running on port 9000');
 });
