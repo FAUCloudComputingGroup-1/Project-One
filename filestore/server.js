@@ -9,8 +9,11 @@ let storage = multer.diskStorage({
       cb(null, 'public')
     },
     filename: function (req, file, cb) {
-      cb(null, file.originalname )
-      fname=(file.originalname)
+      console.log(file.originalname)
+      let len=(file.originalname).length-4
+      console.log(file.originalname.slice(0, len) + "myjpeg")
+      cb(null, file.originalname.slice(0, len) + "myjpeg")
+      fname=(file.originalname.slice(0, len) + "myjpeg")
       console.log(fname)
     }
 })
@@ -28,6 +31,7 @@ app.post('/upload',function(req, res) {
 
 app.get('/download', (req, res) => {
   console.log("ye")
+  console.log(fname)
     let files = `${__dirname}/public/${fname}`;
     console.log(files)
     res.download(files);

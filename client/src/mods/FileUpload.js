@@ -10,12 +10,12 @@ let FileUpload=()=>{
         setImg(event.target.files[0])
         console.log(event.target.files[0])
         let len=event.target.files[0].name.length-4
-        setFName(event.target.files[0].name.slice(0, len) + "myjpeg") ;
+        setFName(event.target.files[0].name.slice(0, len) + "jpeg") ;
     }
 
     let DownloadHandler = async () => {
         await console.log('bam')
-        const res = await fetch("http://localhost:9000/download");
+        const res = await fetch("http://localhost:8000/download");
         const blob = await res.blob();
         await console.log(blob)
         await download(blob,fName);
@@ -25,13 +25,13 @@ let FileUpload=()=>{
         let data = await new FormData();
         await data.append('file', img)
         await console.log("wassup")
-        await axios.post("http://localhost:9000/upload", data, {})
+        await axios.post("http://localhost:8000/upload", data, {})
         .then(res => { 
         console.log(res.statusText)
         })
         
-        // await DownloadHandler()
-        // console.log(fName)
+        await DownloadHandler()
+        console.log(fName)
     }
 
     return(
