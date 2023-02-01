@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+  }
+  .container {
+    min-height: 80vh;
+  }
+  input[type='file'] {
+    color: transparent;
+  }
+  .image {
+    perspective: 3000px;
+    width: 50px;
+    width: 50%;
+    position: absolute;
+    left: 35%;
+    top:50%;
+    transform: translate(-20%, -50%);
+    transform-style: preserve-3d;
+  }
+  .image img {
+    width: 350px;
+    transform: rotateX(70deg) rotateZ(-60deg) translate3d(-120px, 0px, 70px);
+    box-shadow: -80px 60px 15px 5px rgba(0,0,0,0.4);
+    transition: all .4s;
+    transform-style: preserve-3d;
+  }
+  .image:hover img {
+    transform: rotateX(0deg) rotateZ(0deg) translate3d(0px, 0px, 0px);
+    box-shadow: 0px 0px 0px 0px rgba(0,0,0,0.0);
+  }
+  .pre_button1{
+    left: 300px;
+    color: blue;
+    border: none;
+    position: relative;
+    align-items: center;
+
+  }
+.button1{
+  position: relative;
+  left: 285px;
+}
+.button2{
+  top: 35px;
+  left: 50px;
+  position: relative;
+}
+
